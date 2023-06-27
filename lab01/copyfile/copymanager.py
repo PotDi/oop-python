@@ -1,23 +1,21 @@
-import sys
-import os
+import argparse
 
 
-class CopyManager:
-    def __init__(self, input_file: str, output_file: str):
-        self.input_file = input_file
-        self.output_file = output_file
+def copy_file():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_file", type=str, help="Source file name")
+    parser.add_argument("output_file", type=str, help="Destination file name")
+    args = parser.parse_args()
+    input_file: str = str(args.input_file)
+    output_file: str = str(args.output_file)
+    if input_file or output_file is not None:
+        with open(input_file, mode="rb") as first_file:
+            data = first_file.read()
+        with open(output_file, mode="wb") as second_file:
+            second_file.write(data)
+    else:
+        print("Файл не найден")
 
-    def copyfile(self):
-        folder = os.path.dirname(__file__)
-        content = os.listdir(folder)
-        if self.input_file in content:
-            with open(self.input_file, mode="rb") as first_file:
-                data = first_file.read()
-            with open(self.output_file, mode="wb") as second_file:
-                second_file.write(data)
-        else:
-            print("Файл не найден")
 
-
-copy = CopyManager(input_file=sys.argv[1], output_file=sys.argv[2])
-copy.copyfile()
+if __name__ == "__main__":
+    copy_file()

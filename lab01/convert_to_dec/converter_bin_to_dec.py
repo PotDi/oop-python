@@ -1,11 +1,21 @@
-def convert_to_dec(digit):
-    length = len(digit)
-    number = 0
-    for i in range(0, length):
-        number = number + int(digit[i]) * (
-                    2 ** (length - i - 1))  # an*2n-1+an-1*2n-2+...+a0*20
+import argparse
+
+
+def convert_to_int(b, number: int):
+    for i in b:
+        number = number*2 + int(i)
     return number
 
 
-a = input("Двоичное число:")
-print(f"Двоичное число {a}, равно десятичному числу {convert_to_dec(a)}")
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("bin", help="Введите число в двоичной системе")
+    args = parser.parse_args()
+    b = args.bin
+    number: int = 0
+    print(convert_to_int(b, number))
+
+
+if __name__ == "__main__":
+    main()
+

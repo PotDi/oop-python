@@ -1,7 +1,7 @@
 import argparse
 
 
-def convert_to_int(b, number: int):
+def convert_to_int(b, number: int) -> int:
     for i in b:
         number = number*2 + int(i)
     return number

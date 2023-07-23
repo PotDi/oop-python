@@ -1,7 +1,5 @@
 import os
 
-import self as self
-
 
 class InvertMatrix:
     def __init__(self, file):
@@ -28,50 +26,96 @@ class Matrix3x3:
     def __init__(self):
         self.__items = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
-    def determinant(self, matrix, n) -> int:
-        match n:
-            case 1:
-                return matrix[0][0]
-            case 2:
-                return matrix[0][0] * matrix[1][1] - matrix[1][0]*matrix[0][1]
-            case n:
-                for i in range(n):
-                    mn = [] #список с дополнительным минором
-                    for k in range(n):
-                        sm = []
-                        for j in range(n):
-                            if k != 0 and j != i:
-                                sm += [matrix[k][j]]
-                        mn += [sm]
-                    sm += matrix[0][i] * self.determinant(mn, n - 1) * (-1)**i
-                return sm
+    def determinant(self):
+        matrix = self.__items
+        try:
+            len(matrix) != 3 or len(matrix[0]) != 3
+        except ValueError:
+            print("Матрица должна быть 3х3")
 
+        det = (matrix[0][0] * matrix[1][1] * matrix[2][2] + matrix[0][1] *
+               matrix[1][2] * matrix[2][0] + matrix[0][2] * matrix[1][0] *
+               matrix[2][1] - matrix[0][2] * matrix[1][1] * matrix[2][0] -
+               matrix[0][1] * matrix[1][0] * matrix[2][2] - matrix[0][0] *
+               matrix[1][2] * matrix[2][1])
+        return det
 
+    def find_minors(self):
+        matrix = self.__items
+        minors = []
+        ln = len(matrix)
+        for i in range(ln):
+            minor_row = []
+            for j in range(ln):
+                minor = [row[:j] + row[j + 1:] for row in matrix[:i] +
+                         matrix[i + 1:]]
+                minor_row.append(minor)
+            minors.append(minor_row)
+        return minors
 
+    def find_algebraic_addition(self):
+        pass
 
-
-
-
-
-
+    def find_transposed_matrix(self):
+        pass
 
     # Инвертирует матрицу. В случае успеха возвращает True и изменяет
     # элементы текущей матрицы на инвертированные.
     # Если матрица вырожденная, возврщает False и не меняет элементы матрицы
-    def invert(self) -> bool:
-        return False
+    # def invert(self) -> bool:
+    #     matrix = self.__items
+    #     deter = self.determinant()
+    #     if deter == 0:
+    #         return False
+    #     self.__items = [[(matrix[1][1] * matrix[2][2] - matrix[1][2]
+    #                           * matrix[2][1]) / deter, (matrix[0][2] *
+    #                                                     matrix[2][1] -
+    #                                                     matrix[0][1] *
+    #                                                     matrix[2][2]) / deter,
+    #                          (matrix[0][1] * matrix[1][2] - matrix[0][2]
+    #                           * matrix[1][1]) / deter], [(matrix[1][2] *
+    #                                                       matrix[2][0] -
+    #                                                       matrix[1][0] *
+    #                                                       matrix[2][2])
+    #                                                      / deter,
+    #                                                      (matrix[0][0] *
+    #                                                       matrix[2][2] -
+    #                                                       matrix[0][2]
+    #                                                       * matrix[2][
+    #                                                           0]) / deter,
+    #                                                      (matrix[0][2] *
+    #                                                       matrix[1][0] -
+    #                                                       matrix[0][0] *
+    #                                                       matrix[1][2]) /
+    #                                                      deter,
+    #                                                      (matrix[0][2] *
+    #                                                       matrix[1][0] -
+    #                                                       matrix[0][0] *
+    #                                                       matrix[1][2])
+    #                                                      / deter],
+    #                         [(matrix[1][0] * matrix[2][1] - matrix[1][1]
+    #                           * matrix[2][0]) / deter, (matrix[0][1] *
+    #                                                     matrix[2][0] -
+    #                                                     matrix[0][0] *
+    #                                                     matrix[2][1])
+    #                          / deter, (matrix[0][0] * matrix[1][1] -
+    #                                    matrix[0][1] * matrix[1][0]) / deter]]
+    #     return True
 
-    # Возвращает элемент матрицы в указанном строке и столбце
-    def get_at(self, row: int, column: int) -> float:
-        return self.__items[row][column]
+    # Возвращает всю матрицу
+    def get_matrix(self) -> list[list[float]]:
+        return self.__items
 
-    def set_at(self, row: int, column: int, value: float):
-        self.__items[row][column] = value
+    # def get_at(self, row: int, column: int) -> float:
+    #     return self.__items[row][column]
+
+    # def set_at(self, row: int, column: int, value: float):
+    #     self.__items = value
 
 
 def read_matrix3x3(file_name: str) -> Matrix3x3:
     m = Matrix3x3()
-    m.set_at(2, 0, 3.1415927)
+    m.get_matrix()
     return m
 
 
@@ -80,9 +124,10 @@ def parse_args():
 
 
 def print_matrix3x3(m: Matrix3x3):
+    matrix = m.get_matrix()
     for row in range(3):
         for col in range(3):
-            print(m.get_at(row, col), end=" ")
+            print(matrix[row][col], end=" ")
         print()
 
 
@@ -95,9 +140,10 @@ def main():
         print("Matrix is singular")
 
 
-#read = InvertMatrix("matrix.txt")
-#read.open_file()
-#read.invert_matrix()
+# read = InvertMatrix("matrix.txt")
+# read.open_file()
+# read.invert_matrix()
+
 
 m = read_matrix3x3("filename")
 print_matrix3x3(m)

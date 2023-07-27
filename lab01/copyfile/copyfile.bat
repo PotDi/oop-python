@@ -1,1 +1,1 @@
-python copymanager.py test.txt test2.txt
+py copymanager.py test.txt test2.txt

@@ -5,7 +5,7 @@ class FileCryptor:
     def open_file(self):
         pass
 
-    def encrypt_file(self, input_file, output_file):
+    def encrypt_file(self, input_file: str, output_file: str):
         with open(input_file, 'rb') as f_in:
             with open(output_file, 'wb') as f_out:
                 byte = f_in.read(1)
@@ -14,7 +14,7 @@ class FileCryptor:
                     f_out.write(encrypted_byte)
                     byte = f_in.read(1)
 
-    def decrypt_file(self, input_file, output_file):
+    def decrypt_file(self, input_file: str, output_file: str):
         with open(input_file, 'rb') as f_in:
             with open(output_file, 'wb') as f_out:
                 byte = f_in.read(1)

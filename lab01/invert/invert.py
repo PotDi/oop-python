@@ -1,4 +1,6 @@
+from __future__ import annotations
 import os
+from typing import List
 
 
 class InvertMatrix:
@@ -22,6 +24,10 @@ class InvertMatrix:
         pass
 
 
+def __find_det_2x2(mat2x2: List[List[float]]) -> float:
+    pass
+
+
 class Matrix3x3:
     def __init__(self):
         self.__items = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -29,7 +35,8 @@ class Matrix3x3:
     def find_determinant(self):
         matrix = self.__items
         try:
-            len(matrix) != 3 or len(matrix[0]) != 3
+            len(matrix) != 3 or len(matrix[0]) != 3  # есть условие,
+            # но не выбросил исключение
         except ValueError:
             print("Матрица должна быть 3х3")
         det = (matrix[0][0] * matrix[1][1] * matrix[2][2] + matrix[0][1] *
@@ -85,6 +92,9 @@ class Matrix3x3:
     # Возвращает всю матрицу
     def get_matrix(self) -> list[list[float]]:
         return self.__items
+
+    def __find_minor_matrix(self) -> Matrix3x3:
+        pass
 
     # def get_at(self, row: int, column: int) -> float:
     #     return self.__items[row][column]

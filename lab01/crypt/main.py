@@ -3,20 +3,15 @@ import argparse
 
 def main():
     args = parse_args()
-    input_file = 'input.bin'  # Имя входного файла
-    encrypted_file = 'encrypted.bin'  # Имя зашифрованного файла
-    decrypted_file = 'decrypted.bin'  # Имя дешифрованного файла
-    key = 42  # Ключ для шифрования
-
     # Создание экземпляра класса
-    file_encryptor_decryptor = FileCryptor(key)
-
+    file_encryptor_decryptor = FileCryptor(args.key)
     # Шифрование файла
-    file_encryptor_decryptor.encrypt_file(input_file, encrypted_file)
+    file_encryptor_decryptor.encrypt_file(args.input_file,
+                                          args.encrypted_file)
     print('Файл успешно зашифрован.')
-
     # Дешифрование файла
-    file_encryptor_decryptor.decrypt_file(encrypted_file, decrypted_file)
+    file_encryptor_decryptor.decrypt_file(args.encrypted_file,
+                                          args.decrypted_file)
     print('Файл успешно дешифрован.')
 
 
@@ -27,6 +22,7 @@ def parse_args():
                                                          "name")
     parser.add_argument("decrypted_file", type=str, help="Decrypted file "
                                                        "name")
+    parser.add_argument("key", type=int)
     args = parser.parse_args()
     return args
 

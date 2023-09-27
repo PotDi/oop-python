@@ -2,6 +2,9 @@ class FileCryptor:
     def __init__(self, key):
         self.__key = key
 
+    def transform_bytes(self, byte):
+        return bytes([byte[0] ^ self.__key])
+
     def encrypt_file(self, input_file: str, output_file: str): #доработать
         # перемешивание битов
         # убрать дублирование кода и вынести открытие и запись файла
@@ -9,7 +12,7 @@ class FileCryptor:
             with open(output_file, 'wb') as f_out:
                 byte = f_in.read(1)
                 while byte:
-                    encrypted_byte = bytes([byte[0] ^ self.__key])
+                    encrypted_byte = self.transform_bytes(byte)
                     f_out.write(encrypted_byte)
                     byte = f_in.read(1)
 
@@ -18,7 +21,7 @@ class FileCryptor:
             with open(output_file, 'wb') as f_out:
                 byte = f_in.read(1)
                 while byte:
-                    decrypted_byte = bytes([byte[0] ^ self.__key])
+                    decrypted_byte = self.transform_bytes(byte)
                     f_out.write(decrypted_byte)
                     byte = f_in.read(1)
 

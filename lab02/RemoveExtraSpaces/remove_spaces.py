@@ -2,15 +2,8 @@ import argparse
 
 
 def main():
-    args: str = "This is Python String"
-    print(clear_space(args))
-
-
-# def parse_args():
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument("word", type=str, help="Word")
-#     args = parser.parse_args()
-#     return args
+    text = input("Введите текст:")
+    print(clear_space(text))
 
 
 def clear_space(s):

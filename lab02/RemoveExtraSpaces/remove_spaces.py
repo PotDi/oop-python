@@ -3,10 +3,10 @@ import argparse
 
 def main():
     text = input("Введите текст:")
-    print(clear_space(text))
+    print(remove_extra_spaces(text))
 
 
-def clear_space(s):
+def remove_extra_spaces(s):
     return "".join(s.split()) if s is not None else " "
 
 

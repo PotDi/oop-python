@@ -2,6 +2,17 @@ class FileCryptor:
     def __init__(self, key):
         self.__key = key
 
+    def open_file(self, input_file, mode):
+        file = open(input_file, mode)
+        return file
+
+    def read_file(self, file):
+        byte = file.read(1)
+        while byte:
+            byte = file.read(1)
+
+    def write_file(self,):
+
     def transform_bytes(self, byte):
         return bytes([byte[0] ^ self.__key])
 

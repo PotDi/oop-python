@@ -1,5 +1,8 @@
 def open_file(input_file, mode):
-    file = open(input_file, mode)
+    try:
+        file = open(input_file, mode)
+    except IOError:
+        return False
     return file
 
 

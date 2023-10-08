@@ -1,6 +1,7 @@
 from crypt import FileCryptor
 import argparse
 
+
 def main():
     args = parse_args()
     # Создание экземпляра класса
@@ -9,7 +10,7 @@ def main():
     file_encryptor_decryptor.encrypt_file(args.input_file,
                                           args.encrypted_file)
     print('Файл успешно зашифрован.')
-    # Дешифрование файла
+        # Дешифрование файла
     file_encryptor_decryptor.decrypt_file(args.encrypted_file,
                                           args.decrypted_file)
     print('Файл успешно дешифрован.')

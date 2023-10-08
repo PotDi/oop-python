@@ -11,7 +11,7 @@ def binary_to_int(binary_str) -> int:
     return number
 
 
-def main():  # parser можно вынести в отдельную функцию
+def main():
     binary: str = parse_args()
     try:
         print(binary_to_int(binary))

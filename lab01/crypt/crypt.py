@@ -6,7 +6,7 @@ def open_file(input_file, mode):
     return file
 
 
-def mix_bits(byte):
+def mix_bits(byte) -> bytes:
     mix_byte = 0
     mix_order = [7, 5, 0, 4, 6, 2, 1, 3]
     for i, mix_index in enumerate(mix_order):
@@ -20,7 +20,7 @@ class FileCryptor:
     def __init__(self, key):
         self.__key = key
 
-    def transform_bytes(self, byte):
+    def transform_bytes(self, byte) -> bytes:
         return bytes([byte[0] ^ self.__key])
 
     def encrypt_file(self, input_file: str, output_file: str):

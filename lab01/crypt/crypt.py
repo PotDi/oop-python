@@ -6,6 +6,16 @@ def open_file(input_file, mode):
     return file
 
 
+def mix_bits(byte):
+    mix_byte = 0
+    mix_order = [7, 5, 0, 4, 6, 2, 1, 3]
+    for i, mix_index in enumerate(mix_order):
+        bit = byte[0] >> i & 1
+        mix_bit = bit << mix_index
+        mix_byte = mix_byte | mix_bit
+    return mix_byte
+
+
 class FileCryptor:
     def __init__(self, key):
         self.__key = key
@@ -19,6 +29,7 @@ class FileCryptor:
             byte = f_in.read(1)
             while byte:
                 encrypted_byte = self.transform_bytes(byte)
+                mix_bits(encrypted_byte)
                 f_out.write(encrypted_byte)
                 byte = f_in.read(1)
 
@@ -29,4 +40,5 @@ class FileCryptor:
             while byte:
                 decrypted_byte = self.transform_bytes(byte)
                 f_out.write(decrypted_byte)
+                mix_bits(decrypted_byte)
                 byte = f_in.read(1)

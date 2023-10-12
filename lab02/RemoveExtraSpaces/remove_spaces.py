@@ -1,6 +1,3 @@
-import argparse
-
-
 def main():
     text = input("Введите текст:")
     print(remove_extra_spaces(text))

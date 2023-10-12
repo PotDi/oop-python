@@ -1,9 +1,14 @@
+import sys
+
+
 def open_file(input_file, mode):
     try:
         file = open(input_file, mode)
     except IOError:
-        return False
-    return file
+        print(u'Не удалось открыть файл')
+        sys.exit(1)
+    else:
+        return file
 
 
 def mix_bits(byte) -> bytes:

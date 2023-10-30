@@ -21,29 +21,26 @@ def mix_bits(byte) -> bytes:
     return mix_byte
 
 
+def transform_file(input_file: str, output_file:str,
+                   transform):
+    with open(input_file, 'rb') as f_in, open(output_file, 'wb') as f_out:
+        while bytes := f_in.read(1):
+            byte = transform(bytes[0])
+            f_out.write(byte.to_bytes(1, 'big'))
+
+
 class FileCryptor:
-    def __init__(self, key):
+    def __init__(self, key: int):
         self.__key = key
 
-    def transform_bytes(self, byte) -> bytes:
-        return bytes([byte[0] ^ self.__key])
-
     def encrypt_file(self, input_file: str, output_file: str):
-        with open_file(input_file, 'rb') as f_in, open_file(output_file, 'wb') \
-                as f_out:
-            byte = f_in.read(1)
-            while byte:
-                encrypted_byte = self.transform_bytes(byte)
-                mix_bits(encrypted_byte)
-                f_out.write(encrypted_byte)
-                byte = f_in.read(1)
+        transform_file(input_file, output_file, self.__encrypt_byte)
 
     def decrypt_file(self, input_file: str, output_file: str):
-        with open_file(input_file, 'rb') as f_in, open_file(output_file, 'wb') \
-                as f_out:
-            byte = f_in.read(1)
-            while byte:
-                decrypted_byte = self.transform_bytes(byte)
-                f_out.write(decrypted_byte)
-                mix_bits(decrypted_byte)
-                byte = f_in.read(1)
+        transform_file(input_file, output_file, self.__decrypt_byte)
+
+    def __encrypt_byte(self, byte: int) -> int:
+        return byte ^ self.__key
+
+    def __decrypt_byte(self, byte: int) -> int:
+        return byte ^ self.__key

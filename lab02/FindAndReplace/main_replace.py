@@ -1,5 +1,5 @@
 import argparse
-from replace import find_and_replace
+from replace import find_and_replace_in_file
 
 
 def parse_args():
@@ -13,7 +13,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    find_and_replace(args.input_file, args.old_text, args.new_text)
+    find_and_replace_in_file(args.input_file, args.old_text, args.new_text)
 
 
 if __name__ == "__main__":

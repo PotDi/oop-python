@@ -21,6 +21,7 @@ process-file.py count-words input.txt
 подстроки в строке
 process-file.py reverse-lines input.txt output.txt
 Заменяет порядок слов в каждой строке на противоположный
+
 5. Есть строка, считывает строк и выводит гласные буквы английского языка.
 a, e, o, u, i, y вне зависимости от регистра
 
